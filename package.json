@@ -5,7 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "storybook:build": "vue-cli-service storybook:build -c .storybook",
+    "sb": "vue-cli-service storybook:serve -p 6006 -c .storybook",
+    "storybook": "vue-cli-service storybook:serve -p 6006 -c .storybook"
   },
   "dependencies": {
     "core-js": "^3.8.3",
@@ -14,15 +17,24 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~5.0.0",
+    "@storybook/addon-essentials": "^6.0.26",
+    "@storybook/addon-links": "^6.0.26",
+    "@storybook/vue": "^6.0.26",
     "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-plugin-unit-jest": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
     "@vue/test-utils": "^1.1.3",
     "@vue/vue2-jest": "^27.0.0-alpha.2",
+    "@vue/cli-plugin-unit-jest": "~4.5.0",
     "babel-jest": "^27.0.6",
     "jest": "^27.0.5",
-    "vue-template-compiler": "^2.6.14"
+    "vue-cli-plugin-storybook": "~2.1.0",
+    "vue-template-compiler": "^2.6.14",
+    "typescript": "^4.5.5",
+    "@storybook/addon-storyshots": "^6.4.19",
+    "jest-vue-preprocessor": "^1.7.1",
+    "sass": "^1.26.3",
+    "sass-loader": "^8.0.2"
   }
 }

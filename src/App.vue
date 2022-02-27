@@ -1,12 +1,17 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <mybutton>123</mybutton>
   </div>
 </template>
+
+
+<script>
+import mybutton from '@/components/MyButton/MyButton.vue'
+export default {
+  name: "test",
+  components: { mybutton },
+}
+</script>
 
 <style>
 #app {
