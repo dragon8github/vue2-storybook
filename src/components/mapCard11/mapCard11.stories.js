@@ -1,10 +1,10 @@
-import mapCard10 from './mapCard10.vue'
+import mapCard11 from './mapCard11.vue'
 import { action } from '@storybook/addon-actions'
 
 export default {
-    component: mapCard10,
+    component: mapCard11,
     excludeStories: /.*Data$/,
-    title: 'mapCard10',
+    title: 'mapCard11',
 }
 
 export const actionsData = {
@@ -13,8 +13,8 @@ export const actionsData = {
 
 const Template = (args, { argTypes }) => {
     return {
-        template: '<mapCard10 v-bind="$props" v-on="actionsData" />',
-        components: { mapCard10 },
+        template: '<mapCard11 v-bind="$props" v-on="actionsData" />',
+        components: { mapCard11 },
         props: Object.keys(args),
         beforeMount () {
             this.actionsData = actionsData
@@ -24,6 +24,6 @@ const Template = (args, { argTypes }) => {
 
 export const Default = Template.bind({})
 Default.args = {
-    NAME: undefined,
-    ADDRESS: undefined,
+    name: undefined,
+    no: undefined,
 }

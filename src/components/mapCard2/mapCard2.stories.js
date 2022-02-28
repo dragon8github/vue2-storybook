@@ -30,9 +30,3 @@ Default.args = {
     TIME: '--',
     COMMUNITY_NAME: '--',
 }
-
-export const Pinned = Template.bind({})
-Pinned.args = {
-    ...Default.args,
-    state: 'mapCard2_PINNED',
-}

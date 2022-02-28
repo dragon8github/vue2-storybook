@@ -31,9 +31,3 @@ Default.args = {
     TIME: '--',
     STAFF_NUM: '--',
 }
-
-export const Pinned = Template.bind({})
-Pinned.args = {
-    ...Default.args,
-    state: 'mapCard3_PINNED',
-}
