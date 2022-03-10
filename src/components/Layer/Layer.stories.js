@@ -1,26 +1,18 @@
-import Layer from './Layer.vue'
-
-import { action } from '@storybook/addon-actions'
+import Layer from './Layer.js'
 
 export default {
-    component: Layer,
     excludeStories: /.*Data$/,
     title: 'Layer',
 }
 
-export const actionsData = {
-    'pin-Layer': action('pin-Layer'),
-    'archive-Layer': action('archive-Layer'),
-}
-
 const Template = (args, { argTypes }) => {
     return {
-        components: { Layer },
-        beforeMount () {
-            this.args = args
-            this.actionsData = actionsData
+        template: '<button @click="go">Show</button>',
+        methods: {
+            go (v) {
+                Layer.show()
+            }
         },
-        template: '<Layer v-bind="args" v-on="actionsData" />',
     }
 }
 
@@ -32,13 +24,5 @@ Default.args = {
         title: 'Test Layer',
         state: 'Layer_INBOX',
         updatedAt: new Date(2018, 0, 1, 9, 0),
-    },
-}
-
-export const Pinned = Template.bind({})
-Pinned.args = {
-    Layer: {
-        ...Default.args.Layer,
-        state: 'Layer_PINNED',
     },
 }
