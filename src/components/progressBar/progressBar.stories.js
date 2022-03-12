@@ -12,18 +12,20 @@ const Template = (args, { argTypes }) => {
             go () {
                 progressBar.show('正在初始化数据，请稍等...')
                 let i = 0
-                let timer = setInterval(() => {
-                    progressBar.setProgress(++i)
-                    if (i >= 100) {
-                        clearInterval(timer)
-                        progressBar.setTitle('数据加载成功 ☀️')
-                        progressBar.setsTitle('正在处理数据 ✈️...')
 
-                        setTimeout(() => {
-                            progressBar.hide()
-                        }, 3000);
-                    }
-                }, 100)
+                progressBar.setProgress(80)
+                // let timer = setInterval(() => {
+                //     progressBar.setProgress(++i)
+                //     if (i >= 100) {
+                //         clearInterval(timer)
+                //         progressBar.setTitle('数据加载成功 ☀️')
+                //         progressBar.setsTitle('正在处理数据 ✈️...')
+
+                //         setTimeout(() => {
+                //             progressBar.hide()
+                //         }, 3000);
+                //     }
+                // }, 100)
             }
         },
     }

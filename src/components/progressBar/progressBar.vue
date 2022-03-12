@@ -42,7 +42,7 @@ export default {
 		return {
 			status: 'show',
 			title: '正在初始化数据，请稍等...',
-			sTitle: '2012312/182398128（13%）',
+			sTitle: '（0%）',
 			progress: 0,
 			radio: 'cyan',
 			radios: ['cyan', 'lime', 'red'],
