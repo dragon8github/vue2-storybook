@@ -307,8 +307,8 @@
    line-height: 20px;
    font-family: 'Nunito Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
    font-style: 400;
-   padding: 0.75rem 0;
-   line-height: 1.5rem !important;
+   /* padding: 0.75rem 0; */
+   /* line-height: 1.5rem !important; */
    border: none;
    border-radius: 0;
    box-sizing: border-box;

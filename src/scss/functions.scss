@@ -1,14 +1,50 @@
+@use "sass:math";
+
+// 为什么是 16？ 答：没有任何原因，因为我们约定的就是 16 作为基本参照。也就是说 1rem = 16px
+// 注意：这里的 $px 是效果图缩小四倍后的数值。
+@function rem($px) {
+    @return math.div($px, 16) * 1rem;
+}
+
+@mixin apply($args...) {
+    @for $i from 1 through length($args) {
+        $item: nth($args, $i);
+        // @debug "scss debug info: #{$item}, #{$i}, #{$args}";
+        @extend .#{$item};
+    }
+}
+
+
+@mixin gradient-text($c1, $c2) {
+    /* 不支持渐变色的 360 浏览器用这个 */
+    // color: $c2;
+    // font-weight: normal !important;
+
+    /* chrome 浏览器用这个 */
+    background: -webkit-gradient(linear, bottom, top, from($c1), to($c2));
+    background: linear-gradient(180deg, $c1, $c2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+@mixin gradient-text-green() {
+    @include gradient-text(var(--greenForm), var(--greenTo))
+}
+
+@mixin gradient-text-yellow() {
+    @include gradient-text(var(--yellowForm), var(--yellowTo))
+}
+
+@mixin gradient-text-blue() {
+    @include gradient-text(var(--blueForm), var(--blueTo))
+}
+
 @mixin ycenter {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-}
-
-// public/layer/bg.png
-$path: '/dataAssets/layer/';
-
-@function getLayerImgPath($img) {
-    @return $path + $img;
 }
 
 @mixin xcenter {
@@ -30,32 +66,21 @@ $path: '/dataAssets/layer/';
     transform: translate(-50%, -50%);
 }
 
-
-@mixin flex ($x: false, $y: false, $direction: false) {
+@mixin flex($x: false, $y: false, $direction: false) {
     display: flex;
 
     @if $x {
         @if $x==s or $x==start {
             justify-content: flex-start;
-        }
-
-        @else if $x==c or $x==center {
+        } @else if $x==c or $x==center {
             justify-content: center;
-        }
-
-        @else if $x==e or $x==end {
+        } @else if $x==e or $x==end {
             justify-content: flex-end;
-        }
-
-        @else if $x==a or $x==around {
+        } @else if $x==a or $x==around {
             justify-content: space-around;
-        }
-
-        @else if $x==b or $x==between {
+        } @else if $x==b or $x==between {
             justify-content: space-between;
-        }
-
-        @else {
+        } @else {
             justify-content: $x;
         }
     }
@@ -63,25 +88,15 @@ $path: '/dataAssets/layer/';
     @if $y {
         @if $y==s or $y==start {
             align-items: flex-start;
-        }
-
-        @else if $y==c or $y==center {
+        } @else if $y==c or $y==center {
             align-items: center;
-        }
-
-        @else if $y==e or $y==end {
+        } @else if $y==e or $y==end {
             align-items: flex-end;
-        }
-
-        @else if $y==stretch or $y==full or $y==f {
+        } @else if $y==stretch or $y==full or $y==f {
             align-items: stretch;
-        }
-
-        @else if $y==baseline or $y==base or $y==b or $y==line or $y==l {
+        } @else if $y==baseline or $y==base or $y==b or $y==line or $y==l {
             align-items: baseline;
-        }
-
-        @else {
+        } @else {
             align-items: $y;
         }
     }
@@ -89,23 +104,146 @@ $path: '/dataAssets/layer/';
     @if $direction {
         @if $direction==c or $direction==col {
             flex-direction: column;
-        }
-
-        @else {
+        } @else {
             flex-direction: $direction;
         }
     }
 }
 
-@mixin bg ($width, $height, $url) {
+@mixin bg($width, $height, $url) {
     width: $width;
     height: $height;
     background: transparent url($url) center / $width $height no-repeat;
     display: inline-block;
 }
 
-@mixin fullbg ($width, $height, $url) {
+@mixin fullbg($width, $height, $url) {
     width: $width;
     height: $height;
     background: url($url) center / 100% no-repeat content-box;
+}
+
+/**
+ * 滚动条样式 ...
+ * 必须配合 overflow-y: scroll; 使用
+ * @include scrollbar()
+ */
+@mixin scrollbar {
+    &::-webkit-scrollbar {
+        width: 0.3em;
+        background-color: rgba(0, 0, 0, 0);
+        display: block;
+    }
+
+    /*定义滚动条轨道 内阴影+圆角*/
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 0.5em;
+        height: 2em;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    /*定义滑块 内阴影+圆角*/
+    &::-webkit-scrollbar-thumb {
+        border-radius: 0.2em;
+        height: 2em;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: rgb(230 240 243 / 20%);
+    }
+}
+@mixin scrollbar2 {
+    &::-webkit-scrollbar {
+        width: 8px;
+        background-color: rgba(0, 0, 0, 0);
+        display: block;
+    }
+
+    /*定义滚动条轨道 内阴影+圆角*/
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 0.5em;
+        height: 2em;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    /*定义滑块 内阴影+圆角*/
+    &::-webkit-scrollbar-thumb {
+        border-radius: 0.2em;
+        height: 2em;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: rgb(230 240 243 / 35%);
+    }
+}
+
+@mixin iconimg {
+    @for $i from 1 through 5 {
+        .icon#{$i} {
+            background-image: url('~@/assets/zyx/icon#{$i}.png');
+        }
+    }
+}
+
+@mixin opacityScrollbar {
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+}
+
+
+@mixin gradient-text($c1, $c2) {
+    /* 不支持渐变色的 360 浏览器用这个 */
+    // color: $c2;
+    // font-weight: normal !important;
+
+    /* chrome 浏览器用这个 */
+    background: -webkit-gradient(linear, bottom, top, from($c1), to($c2));
+    background: linear-gradient(180deg, $c1, $c2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@mixin gradient-text-green() {
+    @include gradient-text(#e9ffff, #5fffa3)
+}
+
+@mixin gradient-text-yellow() {
+    @include gradient-text(#fffde4, #fff661)
+}
+
+@mixin gradient-text-blue() {
+    @include gradient-text(#E6EFFF, #6CA4FF)
+}
+
+
+@mixin pfull() {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@mixin updown {
+    position: relative;
+    cursor: pointer;
+
+    &::before, &::after {
+         content: '';
+         display: inline-block;
+         position: absolute;
+         right: rem(-15);
+         border-left: rem(6) solid transparent;
+         border-right: rem(6) solid transparent;
+         width: 0;
+         height: 0;
+     }
+
+     &::before { bottom: rem(12); border-bottom: rem(8) solid #f6f6f6;  }
+     &::after { top: rem(12);  border-top: rem(8) solid #f6f6f6; }
+     &.is-down::before { border-bottom: rem(8) solid #C4B484; }
+     &.is-up::after { border-top: rem(8) solid #C4B484; }
 }
