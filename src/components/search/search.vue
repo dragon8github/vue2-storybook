@@ -107,8 +107,9 @@ export default {
         },
         handleSelect(item) {
             console.log(item)
+            this.$emit('select', item)
         },
-        handleIconClick(ev) {
+        clear(ev) {
             this.state = ''
         },
     },
