@@ -2,6 +2,18 @@
     <div class="search">
         <el-autocomplete popper-class="my-autocomplete" v-model="state" :fetch-suggestions="querySearchAsync" placeholder="请输入内容" @select="handleSelect">
             <!-- <i class="cup el-icon-close el-input__icon" slot="suffix" @click="handleIconClick"> </i> -->
+
+            <el-popover placement="bottom-start" slot="suffix" title="快捷方式" width="200" trigger="hover">
+                <div class='links'>
+                    <el-button type="text" @click='handleSelect'>酒店（10021）</el-button>
+                    <el-button type="text" @click='handleSelect'>娱乐场所（2021）</el-button>
+                    <el-button type="text" @click='handleSelect'>图书馆（10）</el-button>
+                </div>
+                <i class="cup el-icon-menu el-input__icon" slot="reference" @click="handleIconClick"> </i>
+            </el-popover>
+
+            <!-- <i class="cup el-icon-menu el-input__icon" slot="suffix" @click="handleIconClick"> </i> -->
+
             <i class="cup el-icon-search el-input__icon" slot="prefix" @click="handleIconClick"> </i>
             <template slot-scope="{ item }">
                 <div class="name">{{ item.value }}</div>
@@ -13,14 +25,6 @@
 
 <script>
 
-function createLink(innerHTML, onclick) {
-    let link = document.createElement('a')
-    link.className = 'shortcutLink'
-    link.onclick = onclick
-    link.innerHTML = innerHTML
-    return link
-}
-
 export default {
     data() {
         return {
@@ -28,29 +32,20 @@ export default {
             state: '',
         }
     },
+    props: {
+        search: { type: Function, default: () => new Function() },
+    },
     methods: {
-        // 快捷方式链接
-        // 由于 el-autocomplete 只支持 item 定制，不支持 .el-autocomplete-suggestion__wrap 定制。暂时用注入 dom 的方式来粗鲁的实现快捷链接
-        createShortcutLinks() {
-            this.$nextTick(() => {
-                // 删除上一次创建的所有链接
-                document.querySelectorAll('.shortcutLinks').forEach((val, key) => val.remove())
-                const shortcutLinks = document.createElement('div')
-                shortcutLinks.className = 'shortcutLinks'
-                shortcutLinks.append(createLink('酒店（10021）', this.handleSelect))
-                shortcutLinks.append(createLink('娱乐场所（2021）', this.handleSelect))
-                shortcutLinks.append(createLink('图书馆（10）', this.handleSelect))
-                document.querySelector('.el-scrollbar__view').insertAdjacentElement('beforebegin', shortcutLinks)
-            })
-        },
         querySearchAsync(queryString, cb) {
             var restaurants = this.restaurants
             var results = queryString ? restaurants.filter(this.createStateFilter(queryString)) : restaurants
 
+            // TODO: 通过 props 定义搜素函数，外部来接受（queryString）进行搜素。
+            // this.search(queryString).then(cb)
+
             clearTimeout(this.timeout)
             this.timeout = setTimeout(() => {
                 cb(results)
-                // this.createShortcutLinks()
             }, 3000 * Math.random())
         },
         createFilter(queryString) {
@@ -155,6 +150,10 @@ export default {
         background: transparent;
         border-bottom: 1px solid #ccc;
         color: #fff;
+    }
+
+    .el-button+.el-button {
+        margin-left: 0;
     }
 }
 </style>
