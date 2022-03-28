@@ -112,6 +112,9 @@ export default {
         clear(ev) {
             this.state = ''
         },
+        handleIconClick() {
+            console.log(20220313145643, )
+        },
     },
     mounted() {
         this.restaurants = this.loadAll()
