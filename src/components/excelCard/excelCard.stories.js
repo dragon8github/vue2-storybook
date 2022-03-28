@@ -1,10 +1,10 @@
-import mapCard12 from './mapCard12.vue'
+import excelCard from './index.vue'
 import { action } from '@storybook/addon-actions'
 
 export default {
-    component: mapCard12,
+    component: excelCard,
     excludeStories: /.*Data$/,
-    title: 'mapCard12',
+    title: 'excelCard',
 }
 
 export const actionsData = {
@@ -13,8 +13,8 @@ export const actionsData = {
 
 const Template = (args, { argTypes }) => {
     return {
-        template: '<mapCard12 v-bind="$props" v-on="actionsData" />',
-        components: { mapCard12 },
+        template: '<excelCard v-bind="$props" v-on="actionsData" />',
+        components: { excelCard },
         props: Object.keys(args),
         beforeMount () {
             this.actionsData = actionsData
